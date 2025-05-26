@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'IBM Plex Mono', monospace;
+      background-color: black;
+      color: white;
+      overflow: hidden;
+    }
+    .menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      font-size: 2rem;
+    }
+    .menu-content {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 10px;
+      border: 1px solid white;
+    }
+    .menu-content a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+    .cover {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      max-width: 50vw;
+      max-height: 50vh;
+    }
+    .portfolio {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .pages {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+    .page {
+      min-width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      transform: scale(0.8); /* Reduit la taille des pages de 20% */
+    }
+    .nav-img {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px; /* Augmenté de 5% */
+      height: 50px;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .left-img {
+      left: 20px;
+    }
+    .right-img {
+      right: 20px;
+    }
+    .back-home {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 70px; /* Augmenté de 10% */
+      height: 70px;
+      cursor: pointer;
+      display: none;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu" onclick="toggleMenu()">☰</div> 
+  <div class="menu-content" id="menuContent">
+    <a href="mailto:tonemail@example.com" target="_blank">@</a>
+    <a href="https://www.instagram.com/axelneighborhood?igsh=NnYwdDV4OW91MXJ3" target="_blank">IG</a>
+    <a href="https://vs.co/d4g0lccm" target="_blank">VSCO</a>
+  </div>
+
+  <img src="cover.jpg.png" alt="Portfolio Cover" class="cover" onclick="openPortfolio()">
+  <img src="home.png.png" class="back-home" id="homeBtn" onclick="goHome()">
+
+  <div class="portfolio" id="portfolio">
+    <img src="prev.png.png" class="nav-img left-img" onclick="prevPage()">
+    <img src="next.png.png" class="nav-img right-img" onclick="nextPage()">
+
+    <div class="pages" id="pages">
+      <img src="page1.jpg.png" class="page">
+      <img src="page2.jpg.png" class="page">
+      <img src="page3.jpg.png" class="page">
+      <img src="page4.jpg.png" class="page">
+      <img src="page5.jpg.png" class="page">
+      <img src="page6.jpg.png" class="page">
+      <img src="page7.jpg.png" class="page">
+      <img src="page8.jpg.png" class="page">
+      <img src="page9.jpg.png" class="page">
+      <img src="page10.jpg.png" class="page">
+      <img src="page11.jpg.png" class="page">
+      <img src="page12.jpg.png" class="page">
+      <img src="page13.jpg.png" class="page">
+      <img src="page14.jpg .png" class="page">
+      <img src="page15.jpg.png" class="page">
+      <img src="page16.jpg.png" class="page">
+      <img src="page17.jpg.png" class="page">
+      <img src="page18.jpg.png" class="page">
+      <img src="page19.jpg.png" class="page">
+      <img src="page20.jpg.png" class="page">
+      <img src="page21.jpg.png" class="page">
+      <img src="page22.jpg.png" class="page">
+      <img src="page23.jpg.png" class="page">
+      <img src="page24.jpg.png" class="page">
+      <img src="page25.jpg.png" class="page">
+      <img src="page26.jpg.png" class="page">
+      <img src="page27.jpg.png" class="page">
+      <img src="page28.jpg.png" class="page">
+      <img src="page29.jpg.png" class="page">
+      <img src="page30.jpg.png" class="page">
+      <img src="page31.jpg.png" class="page">
+      <img src="page32.jpg.png" class="page">
+    </div>
+  </div>
+
+  <script>
+    let menuOpen = false;
+    let currentPage = 0;
+
+    function toggleMenu() {
+      const menu = document.getElementById('menuContent');
+      menu.style.display = menuOpen ? 'none' : 'block';
+      menuOpen = !menuOpen;
+    }
+
+    function openPortfolio() {
+      document.querySelector('.cover').style.display = 'none';
+      document.getElementById('portfolio').style.display = 'block';
+      document.getElementById('homeBtn').style.display = 'block';
+    }
+
+    function goHome() {
+      document.querySelector('.cover').style.display = 'block';
+      document.getElementById('portfolio').style.display = 'none';
+      document.getElementById('homeBtn').style.display = 'none';
+    }
+
+    function updateSlide() {
+      const pages = document.getElementById('pages');
+      pages.style.transform = `translateX(-${currentPage * 100}vw)`;
+    }
+
+    function nextPage() {
+      const total = document.querySelectorAll('.page').length;
+      if (currentPage < total - 1) {
+        currentPage++;
+        updateSlide();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        updateSlide();
+      }
+    }
+
+    let startX = 0;
+    document.getElementById('portfolio').addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    document.getElementById('portfolio').addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (diff > 50) nextPage();
+      else if (diff < -50) prevPage();
+    });
+  </script>
+</body>
+</html>
